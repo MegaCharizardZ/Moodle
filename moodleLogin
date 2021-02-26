@@ -1,0 +1,51 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+Created on Thu Feb 25 22:25:25 2021
+
+@author: aryansinha
+"""
+from selenium import webdriver
+from selenium.webdriver.common.keys import Keys
+import time
+
+PATH = "/Users/aryansinha/Downloads/chromedriver"
+driver = webdriver.Chrome(PATH)
+
+
+driver.get("https://moodle.iitd.ac.in/login/index.php")
+print(driver.title)
+
+search = driver.find_element_by_name("username")
+search.send_keys("i aint gonna say")
+
+passw = input("Enter password")
+
+search1 = driver.find_element_by_name("password")
+search1.send_keys(passw)
+
+search2 = driver.find_element_by_name("valuepkg3")
+text = driver.find_element_by_id("login").text
+l=[]
+search2.clear()
+x=text.split(" ")
+for i in range(len(x)):
+    if x[i]=="first":
+        search2.send_keys(int(x[i+2]))
+    elif x[i]=="second":
+        search2.send_keys(int(x[i+4]))
+    elif x[i]=="subtract":
+        search2.send_keys(int(x[i+1])-int(x[i+3]))
+    elif x[i]=="add":
+        search2.send_keys(int(x[i+1])+int(x[i+3]))
+
+link = driver.find_element_by_id("loginbtn")
+link.click()        
+        
+        
+        
+        
+
+time.sleep(60)
+
+driver.quit()
